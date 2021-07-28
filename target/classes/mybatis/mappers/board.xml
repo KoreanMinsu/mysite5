@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+
+<!-- Update HIT(글읽기 조회수) -->
+	<update id="update" parameterType="int">
+	<![CDATA[
+		UPDATE 
+			board
+		SET		
+			hit = hit+1
+		WHERE	
+			no = #{no}
+	]]>
+	</update>
+
+<!-- 게시판 정보 1개 가져오기 -->	
+	<select id="selectBoard" parameterType="int" resultType="BoardVo">
+	<![CDATA[
+		SELECT 
+				b.no
+			,	b.title
+			,	b.content
+			,	b.hit
+			,	b.reg_date 
+			,	b.user_no as userNo
+			,	u.name
+		FROM
+			board b, users u
+		WHERE	
+			b.user_no = u.no
+		AND	b.no = #{no}	
+	]]>
+	</select>
+	
+<!-- 게시판 글쓰기 -->
+	<insert	id="writeBoard" parameterType="BoardVo">
+	<![CDATA[
+		INSERT INTO
+				board
+		VALUES
+				(seq_board_no.NEXTVAL
+			,	#{title}
+			,	#{content}
+			,	#{userNo}
+			,	sysdate
+	]]>
+	</insert>
+	
+<!-- 게시판 지우기 -->
+	<delete	id="deleteBoard" parameterType="int">
+	<![CDATA[
+		DELETE FROM
+				board
+		WHERE
+			no = #{no};
+	]]>
+	</delete>
+<!-- 게시판 수정하기 -->	
+	<update id="modifyBoard" parameterType="BoardVo">
+		<![CDATA[
+			UPDATE
+				board
+			SET
+				title = #{ title },
+				content = #{ content}
+			WHERE
+				no = #{ no }
+		]]>
+	</update>
+	
+<!-- 게시판 리스트 가져오기 + 검색어 검색리스트 -->
+	<select id="getBoardList" resultType="BoardVo">
+	<![CDATA[
+		SELECT 
+			b.no
+		,	b.title
+		,	b.content
+		,	b.hit
+		,	b.reg_date 
+		,	b.user_no as userNo
+		,	u.name
+	FROM
+		board b LEFT OUTER JOIN users u 
+	ON	
+		b.user_no = u.no
+		
+	]]>
+	
+		<if test="searchword != null or searchword != '' ">	
+	<![CDATA[
+    	WHERE
+		    b.title LIKE '%'||#{searchword}||'%'
+    ]]>
+		</if>
+
+    <![CDATA[
+		ORDER BY
+			b.no DESC
+		]]>
+	</select>
+
+
+	
+	
+</mapper>
