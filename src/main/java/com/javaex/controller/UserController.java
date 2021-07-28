@@ -72,7 +72,7 @@ public class UserController {
 
 		userService.insert(userVo);
 
-		return "user/joinOk";
+		return "/user/joinOk";
 	}
 	
 	//ModifyForm
@@ -102,4 +102,6 @@ public class UserController {
 
 		return "redirect:/main";
 	}
+	
+	
 }	
