@@ -5,7 +5,7 @@
 	<typeAliases>
 		<typeAlias alias="UserVo" type="com.javaex.vo.UserVo" />
 		<typeAlias alias="BoardVo" type="com.javaex.vo.BoardVo" />
-		<typeAlias alias="GuestVo" type="com.javaex.vo.GuestbookVo" />
+		<typeAlias alias="GuestbookVo" type="com.javaex.vo.GuestbookVo" />
 		
 	</typeAliases>
 

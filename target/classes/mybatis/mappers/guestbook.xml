@@ -3,5 +3,44 @@
 
 <mapper namespace="guestbook">
 
-
+	<!-- list -->
+	<select id="gettList" resultType="GuestbookVo">
+		<![CDATA[
+			SELECT  
+					no
+				,	name
+				,	password
+				,	content
+				,	reg_date
+			FROM 
+				guestbook
+			ORDER BY no DESC
+		]]>
+	
+	</select>
+	
+	
+	<insert id="insert" parameterType="GuestbookVo">
+		<![CDATA[
+			INSERT INTO
+					guestbook
+			VALUES
+					( seq_no.NEXTVAL
+				,	#{name}
+				,	#{password}
+				,	#{content}
+				,	sysdate
+				)
+		]]>
+	</insert>
+	
+	<delete id="delete" parameterType="GuestbookVo">
+		<![CDATA[
+			DELETE FROM
+				guestbook
+			WHERE
+				no = #{no}
+			AND password = #{password}
+		]]>
+	</delete>
 </mapper>
