@@ -35,11 +35,20 @@ public class GuestbookDao {
 		
 	//delete
 	public int delete(GuestbookVo guestbookVo) {
-		System.out.println("[GuestbookService.delete()]");
+		System.out.println("[GuestbookDao.delete()]");
 
 		int count =  sqlSession.delete("guestbook.delete",guestbookVo);
 		
 		return count;
 	}
 	
+	//방명록 글 저장
+	public int insertGuestbookKey(GuestbookVo guestbookVo) {
+		System.out.println("[GuestbookDao.insertGuestbookKey]");
+		
+		int count = sqlSession.insert("guestbook.insertGuestbookKey", guestbookVo);
+		
+		return count;
+	}
+
 }

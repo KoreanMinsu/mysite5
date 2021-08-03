@@ -71,7 +71,7 @@
 	</update>
 	
 <!-- 게시판 리스트 가져오기 + 검색어 검색리스트 -->
-	<select id="getBoardList" resultType="BoardVo">
+	<select id="getBoardList" parameterType = "String" resultType="BoardVo">
 	<![CDATA[
 		SELECT 
 			b.no
@@ -88,7 +88,7 @@
 		
 	]]>
 	
-		<if test="searchword != null or searchword != '' ">	
+		<if test="value != null or value != '' ">	
 	<![CDATA[
     	WHERE
 		    b.title LIKE '%'||#{searchword}||'%'

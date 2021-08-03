@@ -64,7 +64,8 @@ public class BoardController {
 	@RequestMapping(value="/modifyForm", method = { RequestMethod.GET, RequestMethod.POST })
 	public String modifyForm(Model model, @RequestParam("no") int no) {
 		System.out.println("[BoardController.modifyForm()]");
-
+		
+		//로그인 유저와 작성자 일치시 수정폼
 		BoardVo boardVo = boardService.getBoard(no);
 		
 		model.addAttribute("boardVo", boardVo);
