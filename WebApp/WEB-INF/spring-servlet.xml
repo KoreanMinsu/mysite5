@@ -41,6 +41,7 @@
 	<mvc:default-servlet-handler />
 	<mvc:annotation-driven />
 
+	<!-- json관련 설정 -->
 	<mvc:annotation-driven>
 		<mvc:message-converters>
 			<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
