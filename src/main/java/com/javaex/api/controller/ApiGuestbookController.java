@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.javaex.service.GuestbookService;
@@ -32,11 +33,24 @@ public class ApiGuestbookController {
 	}
 	
 	//ajax 방명록 저장
+	@ResponseBody
 	@RequestMapping(value="/guestbook/write" , method= {RequestMethod.GET, RequestMethod.POST})
-	public String write(@ModelAttribute GuestbookVo guestbookVo) {
+	public GuestbookVo write(@ModelAttribute GuestbookVo guestbookVo) {
 		System.out.println("[apiGuestbookController.write]");
 		
-		guestbookService.writeResultVo(guestbookVo);
-		return "";
+		GuestbookVo resultVo = guestbookService.writeResultVo(guestbookVo);
+		
+		return resultVo;
+	}
+	
+	//ajax 방명록 삭제
+	@RequestMapping(value = "/guestbook/delete", method = {RequestMethod.GET, RequestMethod.POST})
+	public int remove(@ModelAttribute GuestbookVo guestbookVo) {
+		System.out.println("[apiGuestbookController.delete]");
+		
+		int count = guestbookService.delete(guestbookVo);
+		System.out.println(count);
+		
+		return count;
 	}
 }

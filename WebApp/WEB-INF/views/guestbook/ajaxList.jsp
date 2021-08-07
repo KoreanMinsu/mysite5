@@ -8,11 +8,15 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+<link href="${pageContext.request.contextPath }/assets/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath }/assets/css/mysite.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath }/assets/css/guestbook.css" rel="stylesheet" type="text/css">
+
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/assets/bootstrap/js/bootstrap.js"></script>
 
 </head>
+
 
 <body>
 	<div id="wrap">
@@ -22,7 +26,7 @@
 		
 		<div id="container" class="clearfix">
 			
-			<c:import url="/WEB-INF/views/include/aside.jsp"></c:import>
+			<c:import url="/WEB-INF/views/includes/aside_Guestbook.jsp"></c:import>
 			<!-- //aside -->
 
 			<div id="content">
@@ -40,7 +44,7 @@
 				<!-- //content-head -->
 
 				<div id="guestbook">
-					<form action="${pageContext.request.contextPath }/guest/add" method="get">
+					<form action="" method="">
 						<table id="guestAdd">
 							<colgroup>
 								<col style="width: 70px;">
@@ -52,10 +56,10 @@
 								<tr>
 									<th><label class="form-text" for="input-uname">이름</label>
 									</th>
-									<td><input id="input-uname" type="text" name="name"></td>
+									<td><input id="input-uname" type="text" name="name" value=""></td>
 									<th><label class="form-text" for="input-pass">패스워드</label>
 									</th>
-									<td><input id="input-pass" type="password" name="password"></td>
+									<td><input id="input-pass" type="password" name="password" value=""></td>
 								</tr>
 								<tr>
 									<td colspan="4"><textarea name="content" cols="72" rows="5"></textarea></td>
@@ -64,6 +68,8 @@
 									<td colspan="4" class="text-center"><button id="btnSubmit" type="submit">등록</button></td>
 								</tr>
 							</tbody>
+							<button id="btnshow" type="button">보이기</button>
+							<button id="btnhide" type="button">숨기기</button>
 
 						</table>
 
@@ -71,30 +77,9 @@
 					
 					
 					<div id = "listArea">
-						jquery 리스트 영역
+						<!-- jquery 리스트 영역 -->
 					</div>
 					
-					<c:forEach items="${requestScope.guestbookList }" var="guestbookList" varStatus = "status">
-
-						<table class="guestRead">
-							<colgroup>
-								<col style="width: 10%;">
-								<col style="width: 40%;">
-								<col style="width: 40%;">
-								<col style="width: 10%;">
-							</colgroup>
-							<tr>
-								<td>${guestbookList.no}</td>
-								<td>${guestbookList.name}</td>
-								<td>${guestbookList.regDate}</td>
-								<td><a href="${pageContext.request.contextPath }/guest/deleteForm?no=${guestbookList.no}">[삭제]</a></td>
-							</tr>
-							<tr>
-								<td colspan=4 class="text-left">$guestbookList.content}</td>
-							</tr>
-						</table>
-						
-					</c:forEach>
 
 				</div>
 				<!-- //guestBook -->
@@ -109,8 +94,38 @@
 		
 	</div>
 	<!-- //wrap -->
+	
+	<!-- 모달모달모달모달모달모달모달모달모달모달모달모달모달모달모달모달모달모달모달모달모달모달 -->
+	<!-- 모달모달모달모달모달모달모달모달모달모달모달모달모달모달모달모달모달모달모달모달모달모달 -->
+	
+	<!-- 삭제 모달창 -->
+	<div id="delModal" class="modal fade">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title">방명록 삭제</h4>
+	      </div>
+	      <div class="modal-body">
+	      	
+	      	<label for="modalPassword" >비밀번호</label >
+	      	<input id="modalPassword" type="password" name="password" value="">
+	        
+	        <input type="text" name="no" value="">
+	        
+	      </div>
+	      <div class="modal-footer">
+       	        <button id="modalBtnDel" type="button" class="btn btn-primary">삭제</button>
+	      </div>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	<!-- 모달모달모달모달모달모달모달모달모달모달모달모달모달모달모달모달모달모달모달모달모달모달 -->
+	<!-- 모달모달모달모달모달모달모달모달모달모달모달모달모달모달모달모달모달모달모달모달모달모달 -->
 
 </body>
+
+
 
 <script type="text/javascript">
 
@@ -122,17 +137,17 @@ $(document).ready(function(){
 			
 		url : "${pageContext.request.contextPath }/api/guestbook/list",		
 		type : "post",
-		contentType : "application/json",
-		data : {name: "김민수"},
+		//contentType : "application/json",
+		//data : {name: "김민수"},
 
-		dataType : "json",
+		//dataType : "json",
 		success : function(guestList){
 			/*성공시 처리해야될 코드 작성*/
 			console.log(guestList);
 			
 			//화면에 그리기
-			for(var i=0, i<guestList.letngh; i++){
-				render(guestList[i]); //방명록 글 1개씩 추가(렌더링 함수이용)
+			for(var i=0, i<guestList.length; i++){
+				render(guestList[i], "down"); //방명록 글 1개씩 추가(렌더링 함수이용)
 		
 		},
 		error : function(XHR, status, error) {
@@ -147,6 +162,7 @@ $("#btnSubmit").on("click", function(){
 	event.preventDefault();
 	console.log("등록버튼 클릭");
 	
+	/*
 	//name 읽어오기
 	var userName = $("#input-uname").val();
 	console.log(userName);
@@ -158,6 +174,8 @@ $("#btnSubmit").on("click", function(){
 	//content 읽어오기
 	var content = $("[name=content]").val();
 	console.log(content);
+	
+	*/
 	
 	var guiestbookVo = {
 			name : $("#input-uname").val();
@@ -171,18 +189,20 @@ $("#btnSubmit").on("click", function(){
 		
 		//url : "${pageContext.request.contextPath }/api/guestbook/write?name="+ userName + "&password="+ password + "&content="+ content ,		
 		//url에 값 다 입력시 번거로움 -> data 부분에 넣어서 편하게
-		type : "post",
-		contentType : "application/json",
-
+		type : "get",
+		
+		//contentType : "application/json",
 		//data : {name: username, password = password, content = content},
 		//일일이 넣어주거나. vo만들어서 넣어도 무관
 		
 		data : guestbookVo,
 
-		dataType : "json",
-		success : function(){
+		//dataType : "json",
+		success : function(guestbookVo){
 			/*성공시 처리해야될 코드 작성*/
-			console.log();
+			console.log(guestbookVo);
+			render(guestbookVo, "up");
+
 			
 		},
 		error : function(XHR, status, error) {
@@ -191,6 +211,64 @@ $("#btnSubmit").on("click", function(){
 	});
 	
 })
+
+//삭제 버튼 클릭시
+$("#listArea").on("click", ".btnDel", function(){
+	console.log("삭제버튼 클릭");
+	
+	var tag = $(this);
+	tag.data("no");
+	
+	
+	//hidden no 입력하기
+	var no = $(this).data("no");
+	$("[name=no]").val(no);
+	
+	
+	//모달창 보이기
+	$("#delModal").modal();
+	
+});
+
+//삭제모달창의 삭제버튼 클릭시
+$("#modalBtnDel").on("click", funcion(){
+	console.log("모달창 삭제 버튼클릭")
+	
+	var no = $("[name='no']").val();
+	
+	var guestbookVo = {
+		no: $("[name='no']").val(),
+		password: $("[name='password']").val()
+	};
+	
+	//서버에 삭제요청( no, password 전달)
+	$.ajax({
+		
+		url : "${pageContext.request.contextPath }/api/guestbook/remove",		
+		type : "post",
+		//contentType : "application/json",
+		data : guestbookVo,
+		dataType : "json",
+		success : function(count){
+			/*성공시 처리해야될 코드 작성*/
+			
+			if(count === 1){
+				//모달창 닫기
+				$("#delModal").modal("hide");
+				
+				//리스트의 삭제버튼이 있던 테이블 화면에서 지우기
+				$("#t-" + no).remove();
+			}else {
+				//모달창 닫기
+				$("#delModal").modal("hide");
+			}
+			
+		},
+		error : function(XHR, status, error) {
+			console.error(status + " : " + error);
+		}
+	});
+});
 
 //1개씩 렌더링
 function render(guestbookVo, type){
@@ -206,15 +284,37 @@ function render(guestbookVo, type){
 		str += '		<td>'+ guestbookVo.no +'</td>';
 		str += '		<td>'+ guestbookVo.name +'</td>';
 		str += '		<td>'+ guestbookVo.redDate +'</td>';
-		str += '		<td><a href="${pageContext.request.contextPath }/guest/deleteForm?no='+ guestbookVo.no +">[삭제]</a></td>';
+		str += '		<td><button class="btnDel" data-no = "' + guestbookVo.no + '">[삭제]</button></td>';
 		str += '	</tr>';
 		str += '	<tr>';
 		str += '		<td colspan=4 class="text-left">'+ guestbookVo.content +'</td>';
 		str += '	</tr>';
 		str += '</table>';
 		
-		$("#listArea").appened(Str);
+		if(type === 'down'){
+			$("#listArea").append(str);	
+		}else if((type === 'up')){
+			$("#listArea").prepend(str);
+		}else {
+			console.log("방향을 지정해 주세요");
 		}
+}
+
+/*보이기 숨기기 예졔 */
+$("#btnhide").on("click", function(){
+	console.log("숨기기버튼 클릭")
+	
+	$("#btnSubmit").hide();
+	
+}); 
+}
+
+$("#btnshow").on("click", function(){
+	console.log("보이기버튼 클릭")
+	
+	$("#btnSubmit").show();
+	
+}); 
 }
 </script>
 </html>
