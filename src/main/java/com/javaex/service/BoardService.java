@@ -14,6 +14,14 @@ public class BoardService {
 	@Autowired
 	private BoardDao boardDao;
 	
+	
+	//list2 페이징 연습용
+	public List<BoardVo> getBoardList2(){
+		System.out.println("[BoardService.getBoardList2()]");
+		
+		return boardDao.getBoardList2();
+	}
+	
 	public BoardVo getBoard(int no) {
 		System.out.println("[BoardService.getBoard()]");
 		System.out.println(no);

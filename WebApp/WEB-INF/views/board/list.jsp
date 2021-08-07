@@ -61,16 +61,16 @@
 							</thead>
 							<tbody>
 								<!-- tbody 게시글 반복 출력 -->
-								<c:forEach items="${requtstScope.boardList }" var="boardListVo" varStatus="status">
+								<c:forEach items="${requtstScope.boardList }" var="boardVo" varStatus="status">
 									 <tr>
-										<td>${boardListVo.no }</td>
-										<td class="text-left"><a href="${ pageContext.request.contextPath}/board/read?no=${boardListVo.no }">${boardListVo.title}</a></td>
-										<td>${boardListVo.name}</td>
-										<td>${boardListVo.hit}</td>
-										<td>${boardListVo.regDate}</td>
+										<td>${boardVo.no }</td>
+										<td class="text-left"><a href="${ pageContext.request.contextPath}/board/read?no=${boardVo.no}">${boardVo.title}</a></td>
+										<td>${boardVo.name}</td>
+										<td>${boardVo.hit}</td>
+										<td>${boardVo.regDate}</td>
 										<td>
-											<c:if test="${sessionScope.authUser.no eq requestScope.boardListVo.no }">
-											<a href="/mysite/board/delete?no=${bList.no }">[삭제]</a></c:if>
+											<c:if test="${sessionScope.authUser.no == requestScope.boardVo.no }">
+											<a href="${pageContext.request.contextPath }/mysite/board/delete?no=${boardVo.no }">[삭제]</a></c:if>
 										</td>
 									</tr>
 								</c:forEach>

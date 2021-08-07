@@ -23,6 +23,18 @@ public class BoardController {
 	@Autowired
 	private BoardService boardService;
 	
+	//BOARD PAGING 연습리스트
+	@RequestMapping(value="/list2", method= {RequestMethod.GET, RequestMethod.POST})
+	public String list2(Model model) {
+		System.out.println("[BoardController.list2()]");
+		
+		List<BoardVo> boardVo = boardService.getBoardList2();
+		model.addAttribute("boardVo", boardVo);
+
+		return "board/list2";
+	}
+	
+	
 	//read
 	@RequestMapping(value="/read", method= {RequestMethod.GET, RequestMethod.POST})
 	public String read(Model model, @RequestParam("no") int no) {

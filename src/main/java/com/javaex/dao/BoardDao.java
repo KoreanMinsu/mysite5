@@ -15,6 +15,15 @@ public class BoardDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	//paging 연습용 boardlist2
+	public List<BoardVo> getBoardList2(){
+		
+		List<BoardVo> boardList2 = sqlSession.selectList("board.getBoardList2");
+
+		return boardList2;
+	}
+	
+	
 	//
 	public List<BoardVo> getBoardList(String searchword) {
 		System.out.println("[BaordDao.getBoardList()]");

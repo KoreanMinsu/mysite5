@@ -41,8 +41,7 @@
 				<div id="board">
 					<div id="modifyForm">
 						<form action="${ pageContext.request.contextPath }/board/modify" method="get">
-						<input type="hidden" name = "no" value="${requestScope.boardVo.no }">
-						<input type="hidden" name = "userNo" value="${requestScope.boardVo.userNo }">
+						<input type="text" name = "no" value="${requestScope.boardVo.no }">
 							<!-- 작성자 -->
 							<div class="form-group">
 								<span class="form-text">작성자</span> <span class="form-value">${requestScope.boardVo.name }</span>
