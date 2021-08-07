@@ -21,7 +21,7 @@
 		
 		<div id="container" class="clearfix">
 			
-			<c:import url="/WEB-INF/views/include/aside.jsp"></c:import>
+			<c:import url="/WEB-INF/views/include/aside_Guestbook.jsp"></c:import>
 			<!-- //aside -->
 
 			<div id="content">
@@ -68,7 +68,7 @@
 
 					</form>
 					
-					<c:forEach items="${requestScope.guestbookList }" var="guestbookList" varStatus = "status">
+					<c:forEach items="${requestScope.guestbookList }" var="guestbookVo" varStatus = "status">
 
 						<table class="guestRead">
 							<colgroup>
@@ -78,13 +78,13 @@
 								<col style="width: 10%;">
 							</colgroup>
 							<tr>
-								<td>${guestbookList.no}</td>
-								<td>${guestbookList.name}</td>
-								<td>${guestbookList.regDate}</td>
-								<td><a href="${pageContext.request.contextPath }/guest/deleteForm?no=${guestbookList.no}">[삭제]</a></td>
+								<td>${guestbookVo.no}</td>
+								<td>${guestbookVo.name}</td>
+								<td>${guestbookVo.regDate}</td>
+								<td><a href="${pageContext.request.contextPath }/guestbook/deleteForm?no=${guestbookVo.no}">[삭제]</a></td>
 							</tr>
 							<tr>
-								<td colspan=4 class="text-left">$guestbookList.content}</td>
+								<td colspan=4 class="text-left">$guestVo.content}</td>
 							</tr>
 						</table>
 						

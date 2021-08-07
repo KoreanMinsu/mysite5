@@ -19,13 +19,8 @@
 		<!-- header -->
 
 		<div id="container" class="clearfix">
-			<div id="aside">
-				<h2>방명록</h2>
-				<ul>
-					<li>일반방명록</li>
-					<li>ajax방명록</li>
-				</ul>
-			</div>
+			<c:import url="/WEB-INF/views/includes/aside_Guestbook.jsp"></c:import>
+
 			<!-- //aside -->
 
 			<div id="content">
@@ -44,7 +39,7 @@
 				<!-- //content-head -->
 
 				<div id="guestbook">
-					<form action="${pageContext.request.contextPath }/guest/delete" method="post">
+					<form action="${pageContext.request.contextPath }/guestbook/delete" method="get">
 						<table id="guestDelete">
 							<colgroup>
 								<col style="width: 10%;">
@@ -56,7 +51,7 @@
 								<td>비밀번호</td>
 								<td><input type="password" name="password"></td>
 								<td class="text-left"><button type="submit">삭제</button></td>
-								<td><a href="${pageContext.request.contextPath }/guest/addList">[방명록으로 돌아가기]</a></td>
+								<td><a href="${pageContext.request.contextPath }/guestbook/addList">[방명록으로 돌아가기]</a></td>
 							</tr>
 						</table>
 						<input type='hidden' name="no" value="${param.no }"> 
